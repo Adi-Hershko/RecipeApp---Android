@@ -37,7 +37,7 @@ import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
-    ImageView salad, main, drinks, dessert, menu;
+    ImageView salad, main, drinks, dessert;
     RecyclerView rcview_home;
     List<User> dataPopular = new ArrayList<>();
     LottieAnimationView lottie;
@@ -57,7 +57,6 @@ public class HomeActivity extends AppCompatActivity {
         rcview_home = findViewById(R.id.rcview_popular);
         lottie = findViewById(R.id.lottie);
         editText = findViewById(R.id.editText);
-        menu = findViewById(R.id.imageView);
 
         // Set layout to recyclerView
         rcview_home.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -78,12 +77,6 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(intent);
 
         });
-
-        // Menu button
-        menu.setOnClickListener(v -> showBottomSheet());
-
-
-
     }
 
 
@@ -125,34 +118,7 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-    // Create a bottom dialog for privacy policy and about
-    private void showBottomSheet() {
-
-        Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.bottom_sheet);
-
-        LinearLayout privayPolicy = dialog.findViewById(R.id.privacy_policy);
-        LinearLayout abtDev = dialog.findViewById(R.id.about_dev);
-
-        privayPolicy.setOnClickListener(v ->{
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(getString(R.string.privacy_policy_url)));
-            startActivity(intent);
-        });
-
-        abtDev.setOnClickListener(v ->{
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(getString(R.string.abt_dev)));
-            startActivity(intent);
-        });
-
-        dialog.show();
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
+    public void addRecipe(View view) {
+        // TODO: add form logic -> open up a new pop up window and set the form
     }
-
 }
