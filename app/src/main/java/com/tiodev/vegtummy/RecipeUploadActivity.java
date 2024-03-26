@@ -129,23 +129,26 @@ public class RecipeUploadActivity extends AppCompatActivity {
     }
 
     private void insertRecipeIntoDb(Recipe recipe) {
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                        AppDatabase.class, "recipe.db") // Use "recipe.db" here to match the file name in assets
-                .allowMainThreadQueries() // Caution: It's generally not recommended to allow main thread queries
-                .createFromAsset("database/recipe.db") // This assumes your database file is in the "assets/database" directory
-                .fallbackToDestructiveMigration() // This will clear the database on version mismatch. Use with caution.
-                .build();
+        new Thread(() -> {
+            AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                            AppDatabase.class, "recipe.db")
+                    .allowMainThreadQueries() // Caution: It's generally not recommended to allow main thread queries
+                    .createFromAsset("database/recipe.db") // This assumes your database file is in the "assets/database" directory
+                    .fallbackToDestructiveMigration() // This will clear the database on version mismatch. Use with caution.
+                    .build();
 
-        RecipeDao recipeDao = db.recipeDao();
+            RecipeDao recipeDao = db.recipeDao();
 
-//        boolean isSuccess = recipeDao.insert(recipe.img, recipe.tittle, recipe.description, recipe.ingredients, recipe.category);
-//        if (isSuccess){
-//            Toast.makeText(RecipeUploadActivity.this, "Recipe added successfully", Toast.LENGTH_SHORT).show();
-//            navigateBackHome();
-//        }
-//        else{
-//            Toast.makeText(RecipeUploadActivity.this, "Failed to add recipe", Toast.LENGTH_LONG).show();
-//        }
+            // Insert the recipe into the database
+            recipeDao.insert(recipe);
+
+            // Since the database operations are performed in a background thread, make sure to switch
+            // back to the main thread to update the UI or navigate to another activity
+            runOnUiThread(() -> {
+                Toast.makeText(RecipeUploadActivity.this, "Recipe added successfully", Toast.LENGTH_SHORT).show();
+                navigateBackHome();
+            });
+        }).start();
     }
 }
 

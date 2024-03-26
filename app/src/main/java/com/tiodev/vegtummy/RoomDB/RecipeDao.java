@@ -13,6 +13,11 @@ public interface RecipeDao {
     @Query("SELECT * FROM Recipe")
     List<Recipe> getAll();
 
+    @Insert
+    void insert(Recipe recipe);
+
+    @Insert
+    void insertAll(Recipe ... recipes);
 
 }
 
