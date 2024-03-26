@@ -16,17 +16,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.tiodev.vegtummy.R;
 import com.tiodev.vegtummy.RecipeActivity;
-import com.tiodev.vegtummy.RoomDB.User;
+import com.tiodev.vegtummy.RoomDB.Recipe;
 
 import java.util.List;
 
 public class SearchAdapter extends  RecyclerView.Adapter<SearchAdapter.Searchviewholder>{
 
-    List<User> data;
+    List<Recipe> data;
     Context context;
 
 
-    public SearchAdapter(List<User> data, Context context) {
+    public SearchAdapter(List<Recipe> data, Context context) {
         this.data = data;
         this.context = context;
     }
@@ -40,7 +40,7 @@ public class SearchAdapter extends  RecyclerView.Adapter<SearchAdapter.Searchvie
 
     @Override
     public void onBindViewHolder(@NonNull Searchviewholder holder, int position) {
-        final User temp = data.get(position);
+        final Recipe temp = data.get(position);
 
         Glide.with(holder.img.getContext()).load(data.get(position).getImg()).into(holder.img);
         holder.txt.setText(data.get(position).getTittle());
@@ -48,8 +48,8 @@ public class SearchAdapter extends  RecyclerView.Adapter<SearchAdapter.Searchvie
             Intent intent = new Intent(context, RecipeActivity.class);
             intent.putExtra("img", temp.getImg());
             intent.putExtra("tittle", temp.getTittle());
-            intent.putExtra("des", temp.getDes());
-            intent.putExtra("ing", temp.getIng());
+            intent.putExtra("des", temp.getDescription());
+            intent.putExtra("ingridients", temp.getIngredients());
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         });
@@ -63,7 +63,7 @@ public class SearchAdapter extends  RecyclerView.Adapter<SearchAdapter.Searchvie
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void filterList(List<User> filterList){
+    public void filterList(List<Recipe> filterList){
         data = filterList;
         notifyDataSetChanged();
     }

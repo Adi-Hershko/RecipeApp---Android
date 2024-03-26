@@ -17,7 +17,7 @@ import com.bumptech.glide.Glide;
 public class RecipeActivity extends AppCompatActivity {
 
     ImageView img, backBtn, overlay, scroll, zoomImage;
-    TextView txt, ing, time, steps;
+    TextView txt, ingridients, time, steps;
     String [] ingList;
     Button stepBtn, ing_btn;
     boolean isImgCrop = false;
@@ -32,7 +32,7 @@ public class RecipeActivity extends AppCompatActivity {
         // Find views
         img = findViewById(R.id.recipe_img);
         txt = findViewById(R.id.tittle);
-        ing = findViewById(R.id.ing);
+        ingridients = findViewById(R.id.ingridients);
         time = findViewById(R.id.time);
         stepBtn = findViewById(R.id.steps_btn);
         ing_btn = findViewById(R.id.ing_btn);
@@ -51,15 +51,15 @@ public class RecipeActivity extends AppCompatActivity {
         txt.setText(getIntent().getStringExtra("tittle"));
 
         // Set recipe ingredients
-        ingList = getIntent().getStringExtra("ing").split("\n");
+        ingList = getIntent().getStringExtra("ingridients").split("\n");
         // Set time
         time.setText(ingList[0]);
 
 
         for (int i = 1; i<ingList.length; i++){
-            ing.setText(ing.getText()+"\uD83D\uDFE2  "+ingList[i]+"\n");
+            ingridients.setText(ingridients.getText()+"\uD83D\uDFE2  "+ingList[i]+"\n");
             /*if(ingList[i].startsWith(" ")){
-                ing.setText(ing.getText()+"\uD83D\uDFE2  "+ingList[i].trim().replaceAll("\\s{2,}", " ")+"\n");
+                ingridients.setText(ingridients.getText()+"\uD83D\uDFE2  "+ingList[i].trim().replaceAll("\\s{2,}", " ")+"\n");
             }else{
 
             }*/
@@ -83,7 +83,7 @@ public class RecipeActivity extends AppCompatActivity {
 
 
 
-//            ing.setText(getIntent().getStringExtra("des"));
+//            ingridients.setText(getIntent().getStringExtra("des"));
 
 
         });

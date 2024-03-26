@@ -152,7 +152,7 @@
                 android:layout_marginBottom="-25dp"
                 android:fontFamily="@font/poppins_light"
                 android:gravity="center"
-                android:text="Main"
+                android:text="Main Dish"
                 android:textColor="@color/black"
                 android:textSize="17sp" />
 

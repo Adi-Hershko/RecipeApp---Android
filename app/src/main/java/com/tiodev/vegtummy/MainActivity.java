@@ -9,23 +9,21 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.tiodev.vegtummy.Adapter.Adaptar;
-import com.tiodev.vegtummy.Model.ResModel;
+import com.tiodev.vegtummy.Adapter.Adapter;
 import com.tiodev.vegtummy.RoomDB.AppDatabase;
-import com.tiodev.vegtummy.RoomDB.User;
-import com.tiodev.vegtummy.RoomDB.UserDao;
+import com.tiodev.vegtummy.RoomDB.Recipe;
+import com.tiodev.vegtummy.RoomDB.RecipeDao;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView recview;
     boolean connected = false;
-    List<ResModel> data;
-    List<User> dataFinal = new ArrayList<>();
+    List<Recipe> dataFinal = new ArrayList<>();
     ImageView back;
     TextView tittle;
 
@@ -53,20 +51,20 @@ public class MainActivity extends AppCompatActivity {
                 .fallbackToDestructiveMigration() // This will clear the database on version mismatch. Use with caution.
                 .build();
 
-        UserDao userDao = db.userDao();
+        RecipeDao recipeDao = db.recipeDao();
 
         // Get all recipes from database
-        List<User> recipes = userDao.getAll();
+        List<Recipe> recipes = recipeDao.getAll();
 
         // Filter category from recipes
         for(int i = 0; i<recipes.size(); i++){
-            if(recipes.get(i).getCategory().contains(getIntent().getStringExtra("Category"))){
+            if(recipes.get(i).getCategory().contains(Objects.requireNonNull(getIntent().getStringExtra("Category")))){
                 dataFinal.add(recipes.get(i));
             }
         }
 
         // Set category list to adapter
-        Adaptar adapter = new Adaptar(dataFinal, getApplicationContext());
+        Adapter adapter = new Adapter(dataFinal, getApplicationContext());
         recview.setAdapter(adapter);
 
         back.setOnClickListener(v -> finish());

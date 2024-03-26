@@ -5,31 +5,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
-import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.tiodev.vegtummy.Adapter.AdapterPopular;
-import com.tiodev.vegtummy.Model.ResModel;
 import com.tiodev.vegtummy.RoomDB.AppDatabase;
-import com.tiodev.vegtummy.RoomDB.User;
-import com.tiodev.vegtummy.RoomDB.UserDao;
+import com.tiodev.vegtummy.RoomDB.Recipe;
+import com.tiodev.vegtummy.RoomDB.RecipeDao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,10 +25,9 @@ public class HomeActivity extends AppCompatActivity {
 
     ImageView salad, main, drinks, dessert;
     RecyclerView rcview_home;
-    List<User> dataPopular = new ArrayList<>();
+    List<Recipe> dataPopular = new ArrayList<>();
     LottieAnimationView lottie;
     EditText editText;
-    List<ResModel> data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,10 +74,10 @@ public class HomeActivity extends AppCompatActivity {
                 .createFromAsset("database/recipe.db") // This assumes your database file is in the "assets/database" directory
                 .fallbackToDestructiveMigration() // This will clear the database on version mismatch. Use with caution.
                 .build();
-        UserDao userDao = db.userDao();
+        RecipeDao recipeDao = db.recipeDao();
 
         // Get all recipes from database
-        List<User> recipes = userDao.getAll();
+        List<Recipe> recipes = recipeDao.getAll();
 
         // Filter Popular category from all recipes
         for(int i = 0; i<recipes.size(); i++){

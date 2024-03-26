@@ -18,8 +18,8 @@ import android.widget.ImageView;
 
 import com.tiodev.vegtummy.Adapter.SearchAdapter;
 import com.tiodev.vegtummy.RoomDB.AppDatabase;
-import com.tiodev.vegtummy.RoomDB.User;
-import com.tiodev.vegtummy.RoomDB.UserDao;
+import com.tiodev.vegtummy.RoomDB.Recipe;
+import com.tiodev.vegtummy.RoomDB.RecipeDao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,9 +30,9 @@ public class SearchActivity extends AppCompatActivity {
     EditText search;
     ImageView back_btn;
     RecyclerView rcview;
-    List<User> dataPopular = new ArrayList<>();
+    List<Recipe> dataPopular = new ArrayList<>();
     SearchAdapter adapter;
-    List<User> recipes;
+    List<Recipe> recipes;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -57,10 +57,10 @@ public class SearchActivity extends AppCompatActivity {
                 .createFromAsset("database/recipe.db") // This assumes your database file is in the "assets/database" directory
                 .fallbackToDestructiveMigration() // This will clear the database on version mismatch. Use with caution.
                 .build();
-        UserDao userDao = db.userDao();
+        RecipeDao recipeDao = db.recipeDao();
 
         // Get all recipes from database
-        recipes = userDao.getAll();
+        recipes = recipeDao.getAll();
 
         // Filter the Popular category on activity start
         for(int i = 0; i<recipes.size(); i++){
@@ -119,7 +119,7 @@ public class SearchActivity extends AppCompatActivity {
 
     // Filter the searched item from all recipes
     public void filter(String text) {
-        List<User> filterList = new ArrayList<>();
+        List<Recipe> filterList = new ArrayList<>();
 
         for(int i = 0; i<recipes.size(); i++){ // Loop for check searched item in recipe list
             if(recipes.get(i).getTittle().toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))){

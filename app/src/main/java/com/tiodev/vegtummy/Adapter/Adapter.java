@@ -14,24 +14,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.tiodev.vegtummy.R;
 import com.tiodev.vegtummy.RecipeActivity;
-import com.tiodev.vegtummy.RoomDB.User;
+import com.tiodev.vegtummy.RoomDB.Recipe;
 
 import java.util.List;
 
-public class Adaptar extends  RecyclerView.Adapter<Adaptar.myviewHolder>{
+public class Adapter extends  RecyclerView.Adapter<Adapter.myviewHolder>{
 
-//    List<ResModel> data;
-//    Context context;
-
-    List<User> data;
+    List<Recipe> data;
     Context context;
-//    ArrayList<String> data = new ArrayList<>();
-//
-//    public Adaptar(ArrayList<String> data) {
-//        this.data = data;
-//    }
 
-    public Adaptar(List<User> data , Context context) {
+
+    public Adapter(List<Recipe> data , Context context) {
 
         this.data = data;
         this.context = context;
@@ -48,7 +41,7 @@ public class Adaptar extends  RecyclerView.Adapter<Adaptar.myviewHolder>{
     @Override
     public void onBindViewHolder(@NonNull myviewHolder holder, int position) {
 
-        final User temp = data.get(position);
+        final Recipe temp = data.get(position);
 
         holder.txt1.setText(data.get(position).getTittle());
         Glide.with(holder.txt1.getContext()).load(data.get(position).getImg()).into(holder.img);
@@ -58,16 +51,11 @@ public class Adaptar extends  RecyclerView.Adapter<Adaptar.myviewHolder>{
             Intent intent = new Intent(context, RecipeActivity.class);
             intent.putExtra("img", temp.getImg());
             intent.putExtra("tittle", temp.getTittle());
-            intent.putExtra("des", temp.getDes());
-            intent.putExtra("ing", temp.getIng()); // Ingredients
+            intent.putExtra("des", temp.getDescription());
+            intent.putExtra("ingridients", temp.getIngredients()); // Ingredients
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
-
-
         });
-
-
-
     }
 
     @Override
@@ -87,7 +75,4 @@ public class Adaptar extends  RecyclerView.Adapter<Adaptar.myviewHolder>{
             txt1 = itemView.findViewById(R.id.txt1);
         }
     }
-
-
-
 }

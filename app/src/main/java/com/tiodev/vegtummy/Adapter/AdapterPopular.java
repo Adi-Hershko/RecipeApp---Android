@@ -14,16 +14,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.tiodev.vegtummy.R;
 import com.tiodev.vegtummy.RecipeActivity;
-import com.tiodev.vegtummy.RoomDB.User;
+import com.tiodev.vegtummy.RoomDB.Recipe;
 
 import java.util.List;
 
 public class AdapterPopular extends RecyclerView.Adapter<AdapterPopular.myviewholder>{
 
-    List<User> data;
+    List<Recipe> data;
     Context context;
 
-    public AdapterPopular(List<User> data, Context context) {
+    public AdapterPopular(List<Recipe> data, Context context) {
         this.data = data;
         this.context = context;
     }
@@ -37,10 +37,10 @@ public class AdapterPopular extends RecyclerView.Adapter<AdapterPopular.myviewho
 
     @Override
     public void onBindViewHolder(@NonNull myviewholder holder, int position) {
-        final User temp = data.get(holder.getAdapterPosition());
+        final Recipe temp = data.get(holder.getAdapterPosition());
 
         // Split the time from ingredients
-        String[] time = data.get(holder.getAdapterPosition()).getIng().split("\n");
+        String[] time = data.get(holder.getAdapterPosition()).getIngredients().split("\n");
         // Set time
         holder.txt2.setText("\uD83D\uDD50 "+time[0]);
         // Load image from link
@@ -52,8 +52,8 @@ public class AdapterPopular extends RecyclerView.Adapter<AdapterPopular.myviewho
             Intent intent = new Intent(context, RecipeActivity.class);
             intent.putExtra("img", temp.getImg());
             intent.putExtra("tittle", temp.getTittle());
-            intent.putExtra("des", temp.getDes());
-            intent.putExtra("ing", temp.getIng());
+            intent.putExtra("des", temp.getDescription());
+            intent.putExtra("ingridients", temp.getIngredients());
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         });
