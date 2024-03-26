@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tiodev.vegtummy">
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
@@ -13,32 +11,32 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RecyclerView">
         <activity
-            android:name="com.tiodev.vegtummy.SplashActivity"
-            android:exported="true" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
-        <activity
-            android:name="com.tiodev.vegtummy.SearchActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.tiodev.vegtummy.HomeActivity"
+            android:name=".SplashActivity"
             android:exported="true">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
-            android:name="com.tiodev.vegtummy.RecipeActivity"
+            android:name=".SearchActivity"
             android:exported="false" />
         <activity
-            android:name="com.tiodev.vegtummy.MainActivity"
+            android:name=".HomeActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".RecipeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
             android:exported="true" />
+        <!-- Add the RecipeUploadActivity here -->
+        <activity
+            android:name=".RecipeUploadActivity"
+            android:exported="true"/> <!-- Adjust the exported attribute as needed -->
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-
 </manifest>

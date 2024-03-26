@@ -68,8 +68,5 @@ public class MainActivity extends AppCompatActivity {
         recview.setAdapter(adapter);
 
         back.setOnClickListener(v -> finish());
-
-
     }
-
 }

@@ -104,8 +104,6 @@ public class SearchActivity extends AppCompatActivity {
                 if(!s.toString().equals("")){ // Search if new alphabet added
                     filter(s.toString());
                 }
-
-
             }
         });
 
@@ -120,15 +118,12 @@ public class SearchActivity extends AppCompatActivity {
     // Filter the searched item from all recipes
     public void filter(String text) {
         List<Recipe> filterList = new ArrayList<>();
-
         for(int i = 0; i<recipes.size(); i++){ // Loop for check searched item in recipe list
             if(recipes.get(i).getTittle().toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))){
                 filterList.add(recipes.get(i));
             }
         }
-
         // Update search recyclerView with new item
         adapter.filterList(filterList);
-
     }
 }

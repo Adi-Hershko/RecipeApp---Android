@@ -23,7 +23,7 @@ import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
-    ImageView salad, main, drinks, dessert;
+    ImageView salad, main, drinks, dessert, addRecipe;
     RecyclerView rcview_home;
     List<Recipe> dataPopular = new ArrayList<>();
     LottieAnimationView lottie;
@@ -42,6 +42,7 @@ public class HomeActivity extends AppCompatActivity {
         rcview_home = findViewById(R.id.rcview_popular);
         lottie = findViewById(R.id.lottie);
         editText = findViewById(R.id.editText);
+        addRecipe = findViewById(R.id.add_recipe_btn);
 
         // Set layout to recyclerView
         rcview_home.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -60,8 +61,10 @@ public class HomeActivity extends AppCompatActivity {
         editText.setOnClickListener(v ->{
             Intent intent = new Intent(HomeActivity.this,SearchActivity.class);
             startActivity(intent);
-
         });
+
+        // Open add recipe activity
+        addRecipe.setOnClickListener(v -> addRecipe());
     }
 
 
@@ -103,7 +106,8 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void addRecipe(View view) {
-        // TODO: add form logic -> open up a new pop up window and set the form
+    public void addRecipe() {
+        Intent intent = new Intent(HomeActivity.this, RecipeUploadActivity.class);
+        startActivity(intent);
     }
 }
